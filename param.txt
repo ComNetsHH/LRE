@@ -1,0 +1,14 @@
+xMin=0.0;
+xMax=1.0;
+intSize=0.1;
+error=0.01;
+preFirst=0.1;
+name="name";
+description="descr";
+forceRminusAOK=true;
+forceRMinusAOk=true;
+maxNrv=100000;
+skipInterval=0.1;
+int level = 1;
+double gMin = 0.1;
+
