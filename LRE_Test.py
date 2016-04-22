@@ -1,5 +1,14 @@
 import LRE
-lre = LRE.Evaluator(2, 0.0, 1.0, 0.01, 0.05, 0.1, 1E-2, 0, 100000, 0)
+lre = LRE.Evaluator(2, # Type. 0=DLRE 1=DLREF 2=DLREG 3=DLREP
+                    0.0, # xMin
+                    1.0, # xMax
+                    0.01, # intSize
+                    0.05, # error
+                    0.1, # preFirst
+                    1E-2, # gMin
+                    0, # forceRMinusAOk
+                    100000, # maxNrv
+                    0) #skipInterval
 
 file = open("input.txt","r")
 for line in file:
