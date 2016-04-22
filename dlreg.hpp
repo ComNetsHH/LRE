@@ -28,8 +28,6 @@
 #ifndef WNS_EVALUATION_STATISTICS_DLREG_HPP
 #define WNS_EVALUATION_STATISTICS_DLREG_HPP
 
-
-// #include <WNS/evaluation/statistics/dlre.hpp>
 #include "dlre.hpp"
 
 namespace wns { namespace evaluation { namespace statistics {
@@ -72,8 +70,6 @@ namespace wns { namespace evaluation { namespace statistics {
                       int maxNrv,
                       int skipInterval,
                       formatType aFormat);
-
-//                DLREG(const wns::pyconfig::View& config);
 
                 ~DLREG();
 

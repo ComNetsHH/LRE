@@ -26,17 +26,12 @@
  ******************************************************************************/
 
 #include <cmath>
+#include <iostream>
 
-// #include <WNS/evaluation/statistics/dlrep.hpp>
 #include "dlrep.hpp"
 
 using namespace std;
 using namespace wns::evaluation::statistics;
-
-// STATIC_FACTORY_REGISTER_WITH_CREATOR(DLREP,
-//                                      StatEvalInterface,
-//                                      "openwns.evaluation.statistics.DLREP",
-//                                      wns::PyConfigViewCreator);
 
 DLREP::DLREP(std::vector<double> xValuesArr,
              int level,
@@ -84,24 +79,6 @@ DLREP::DLREP(double xMin,
     }
 }
 
-/*
-//! omnipotent pyconfig constructor
-DLREP::DLREP(const wns::pyconfig::View& config) :
-    DLRE(config)
-{
-    double preFirst = config.get<double>("initValue");
-
-    if (preFirst < xMin_)
-    {
-        preIndex_ = indexMin_ - 1;
-    }
-    else if (preFirst > xMax_)
-    {
-        preIndex_ = indexMax_;
-    }
-}
-*/
-
 //! Destructor
 DLREP::~DLREP()
 {
@@ -114,9 +91,6 @@ void DLREP::print(ostream& aStreamRef) const
     printAll(aStreamRef, pf, 0.0);
 }
 
-
-
-
 //! put trial to probe
 void DLREP::put(double value)
 {
@@ -126,7 +100,7 @@ void DLREP::put(double value)
 
         if (curIndex_ == noIndex)
         {
-            ////Speetcl::warning("Warning: Wrong x value in DLREP::put !");
+            cerr << "Warning: Wrong x value in DLREP::put !" << endl;
             return;
         }
 
@@ -193,7 +167,7 @@ DLREP::getResultLine(const int index, ResultLine& line) const
 {
     if ((index < minIndex()) or (index > maxIndex()))
     {
-        //Speetcl::warning("DLREP::getResult():", "index out of range.");
+        cerr << "DLREP::getResult(): index out of range." << endl;
         return;
     }
 
@@ -352,15 +326,12 @@ DLREP::rtc()
         }
         if (warnVfMinusCfLower10)
         {
-            //Speetcl::warning("::DLREP::rtc: ",
-            //                 "large sample condition (r-a>=10) not fulfilled.");
+          cerr << "DLREP::rtc: large sample condition (r-a>=10) not fulfilled." << endl;
         }
 
         if (vfMinusCfAlwaysZero)
         {
-            //Speetcl::warning("::DLREP::rtc: ",
-            //                 "large sample condition (r-a>=10) not fulfilled;\n",
-            //                 "\tr-a yields always zero.");
+            cerr << "DLREP::rtc: large sample condition (r-a>=10) not fulfilled. \tr-a yields always zero." << endl;
         }
         phase_ = finish;
         reason_ = ok;

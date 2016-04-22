@@ -25,11 +25,11 @@
  *
  ******************************************************************************/
 
-// #include <WNS/evaluation/statistics/dlre.hpp>
 #include "dlre.hpp"
 
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 using namespace wns::evaluation::statistics;
@@ -79,7 +79,10 @@ DLRE::initNonEqui(int level,
 {
     indexMax_ = level;
 
-   // assure(level > 1, "Number of levels must be larger than 1");
+   if (level <= 1) {
+     cerr << "Number of levels must be larger than 1" << endl;
+     exit(-1);
+   }
 
     // one element more because of getIndex_
     results_ = new Result [level + 1];
@@ -194,13 +197,22 @@ DLRE::initEqui(double xMin,
                double intSize,
                double preFirst)
 {
-    // assure(intSize > 0, "Interval width must be > 0!");
-    // assure(xMin < xMax, "xMin must be smaller than xMax");
+    if (intSize <= 0) {
+      cerr << "Interval width must be > 0!" << endl;
+      exit(-1);
+    }
+    if (xMin >= xMax) {
+      cerr << "xMin must be smaller than xMax" << endl;
+      exit(-1);
+    }
 
     double tmp = (xMax - xMin) / intSize;
     int level = tmp + 1;
 
-    // assure(level > 1, "Settings for xMax, xMin, intSize results in less than 2 levels");
+    if (level <= 1) {
+      cerr << "Settings for xMax, xMin, intSize results in less than 2 levels" << endl;
+      exit(-1);
+    }
 
     indexMax_ = level;
     results_ = new Result [level + 1];
@@ -237,75 +249,6 @@ DLRE::initEqui(double xMin,
         }
     }
 }
-
-/*
-DLRE::DLRE(const wns::pyconfig::View& config) :
-    StatEval(config),
-    results_(NULL),
-    relErrMax_(config.get<double>("maxError")),
-    maxNrv_(UINT_MAX),
-    wastedLeft_(0),
-    wastedRight_(0),
-    h_(0),
-    xOffset_(0),
-    xMin_(-1.0),
-    xMax_(-1.0),
-    indexMin_(0),
-    indexMax_(0),
-    equiDist_(true),
-    intSize_(-1.0),
-    curIndex_(0),
-    preRv_(config.get<double>("initValue")),
-    preIndex_(0),
-    base_(1.0),
-    reason_(ok),
-    curLevelIndex_(0),
-    skipInterval_(config.get<int>("skipInterval")),
-    forceRminusAOK_(config.get<bool>("forceRminusAOK")),
-    phase_(initialize)
-{
-    if (config.get<string>("maxNumTrials") != "infinity")
-    {
-        maxNrv_ = config.get<int>("maxNumTrials");
-    }
-
-    if (config.get<string>("distances") == "equi")
-    {
-        // equidistant x-values
-        equiDist_ = true;
-        xMin_ = config.get<double>("xMin");
-        xMax_ = config.get<double>("xMax");
-        intSize_ = config.get<double>("intervalWidth");
-
-        this->initEqui(xMin_,
-                       xMax_,
-                       intSize_,
-                       config.get<double>("initValue") );
-
-    }
-    else if (config.get<string>("distances") == "nonequi")
-    {
-        // non-equidistant x-values
-        equiDist_ = false;
-        vector<double> xValuesArr;
-        int numXValues = config.len("xValues");
-        for (int ii=0; ii<numXValues; ++ii)
-        {
-            xValuesArr.push_back(config.get<double>("xValues",ii));
-        }
-
-        this->initNonEqui(numXValues,
-                          xValuesArr,
-                          config.get<double>("initValue"));
-    }
-    else
-    {
-        string errorString = ("Unknown 'distances' setting '" + config.get<string>("distances") + "'\n");
-        // throw(wns::Exception(errorString));
-    }
-}
-
-*/
 
 //! Destructor
 DLRE::~DLRE()
@@ -504,15 +447,16 @@ void DLRE::printAll(ostream& aStreamRef,
         function_string = "P";
         break;
     default:
-          ;
-        // throw(wns::Exception("DLRE: Unknown function type"));
+      cerr << "DLRE: Unknown function type" << endl;
+      break;
     }
 
     printBanner(aStreamRef, eval_type_string, errorString);
 
     if (not aStreamRef)
     {
-        // throw(wns::Exception(errorString));
+        cerr << errorString << endl;
+        exit(-1);
     }
 
     aStreamRef << separator << prefix;
@@ -654,7 +598,8 @@ void DLRE::printAll(ostream& aStreamRef,
 
     if (not aStreamRef)
     {
-        // throw(wns::Exception(errorString));
+      cerr << errorString << endl;
+      exit(-1);
     }
 
 
@@ -686,7 +631,8 @@ void DLRE::printAll(ostream& aStreamRef,
                    << f * base_;
         if (not aStreamRef)
         {
-           // throw(wns::Exception(errorString));
+          cerr << errorString << endl;
+          exit(-1);
         }
         if (x == DBL_MAX or x == -DBL_MAX)
         {
@@ -709,7 +655,8 @@ void DLRE::printAll(ostream& aStreamRef,
         }
         if (not aStreamRef)
         {
-           // throw(wns::Exception(errorString));
+          cerr << errorString << endl;
+          exit(-1);
         }
         aStreamRef << "   not_available   not_available   not_available   "
                    << resetiosflags(ios::right)
@@ -720,7 +667,8 @@ void DLRE::printAll(ostream& aStreamRef,
                    << endl;
         if (not aStreamRef)
         {
-           // throw(wns::Exception(errorString));
+          cerr << errorString << endl;
+          exit(-1);
         }
     }
 
@@ -759,7 +707,8 @@ void DLRE::printAll(ostream& aStreamRef,
 
         if (not aStreamRef)
         {
-           // throw(wns::Exception(errorString));
+          cerr << errorString << endl;
+          exit(-1);
         }
 
         if (x == DBL_MAX or x == -DBL_MAX)
@@ -785,7 +734,8 @@ void DLRE::printAll(ostream& aStreamRef,
         }
         if (not aStreamRef)
         {
-           // throw(wns::Exception(errorString));
+          cerr << errorString << endl;
+          exit(-1);
         }
         aStreamRef << "   not_available   not_available   not_available   "
                    << resetiosflags(ios::right)
@@ -799,14 +749,16 @@ void DLRE::printAll(ostream& aStreamRef,
                    << endl;
         if (not aStreamRef)
         {
-           // throw(wns::Exception(errorString));
+          cerr << errorString << endl;
+          exit(-1);
         }
     }
 
     aStreamRef << long_separator;
     if (not aStreamRef)
     {
-       // throw(wns::Exception(errorString));
+      cerr << errorString << endl;
+      exit(-1);
     }
 }
 
@@ -896,7 +848,8 @@ void DLRE::printLevel(ostream& stream,
 
     if (not stream)
     {
-       // throw(wns::Exception(errorString));
+      cerr << errorString << endl;
+      exit(-1);
     }
 
     if (evaluated and line.relErr_ >= 0.0)
@@ -910,12 +863,12 @@ void DLRE::printLevel(ostream& stream,
         stream << setw(14)
                << line.relErr_
                << "  ";
-        //stream << " not_available  ";
     }
 
     if (not stream)
     {
-       // throw(wns::Exception(errorString));
+      cerr << errorString << endl;
+      exit(-1);
     }
 
 
@@ -930,7 +883,8 @@ void DLRE::printLevel(ostream& stream,
     }
     if (not stream)
     {
-       // throw(wns::Exception(errorString));
+      cerr << errorString << endl;
+      exit(-1);
     }
 
 
@@ -946,7 +900,8 @@ void DLRE::printLevel(ostream& stream,
     }
     if (not stream)
     {
-       // throw(wns::Exception(errorString));
+      cerr << errorString << endl;
+      exit(-1);
     }
 
 
@@ -970,4 +925,3 @@ void DLRE::printLevel(ostream& stream,
     }
     stream << endl;
 }
-

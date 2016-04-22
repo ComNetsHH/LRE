@@ -25,17 +25,12 @@
  *
  ******************************************************************************/
 
-// #include <WNS/evaluation/statistics/dlref.hpp>
 #include "dlref.hpp"
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 using namespace wns::evaluation::statistics;
-
-// STATIC_FACTORY_REGISTER_WITH_CREATOR(DLREF,
-//                                      StatEvalInterface,
-//                                      "openwns.evaluation.statistics.DLREF",
-//                                      wns::PyConfigViewCreator);
 
 DLREF::DLREF(std::vector<double> xValuesArrPtr,
              int level,
@@ -73,15 +68,6 @@ DLREF::DLREF(double xMin,
     curLevelIndex_ = indexMax_ - 1;
 }
 
-/*
-DLREF::DLREF(const wns::pyconfig::View& config) :
-    DLRE(config),
-    fMin_(config.get<double>("minLevel"))
-{
-    curLevelIndex_ = indexMax_ - 1;
-}
-*/
-
 DLREF::~DLREF()
 {}
 
@@ -98,7 +84,6 @@ void DLREF::put(double value)
 
         if (curIndex_ == noIndex)
         {
-            // throw wns::Exception("Warning: Wrong x value in DLREF::put !");
             cerr << "Warning: Wrong x value in DLREF::put !" << endl;
             return;
         }
@@ -216,7 +201,6 @@ DLREF::getResultLine(int index, ResultLine& line) const
 {
     if ((index < minIndex()) || (index > maxIndex()))
     {
-        // throw wns::Exception("DLREF::getResult(): index out of range.");
         cerr << "DLREF::getResult(): index out of range." << endl;
         return;
     }

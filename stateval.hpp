@@ -29,10 +29,6 @@
 #ifndef WNS_EVALUATION_STATISTICS_STATEVAL_HPP
 #define WNS_EVALUATION_STATISTICS_STATEVAL_HPP
 
-/*
-#include <WNS/PyConfigViewCreator.hpp>
-*/
-
 namespace wns { namespace evaluation { namespace statistics {
             template <typename T>
             T getMaxError();
@@ -328,13 +324,8 @@ namespace wns { namespace evaluation { namespace statistics {
                 double scalingFactor_;
             };
 
-
-            //typedef wns::PyConfigViewCreator<StatEvalInterface, StatEvalInterface> Creator;
-            //typedef wns::StaticFactory<Creator> Factory;
-
 } // statistics
 } //evaluation
 } // wns
 
 #endif  // WNS_EVALUATION_STATISTICS_STATEVAL_HPP
-

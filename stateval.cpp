@@ -25,40 +25,18 @@
  *
  ******************************************************************************/
 
-// #include <WNS/evaluation/statistics/stateval.hpp>
-
-// #include <WNS/pyconfig/View.hpp>
-// #include <WNS/simulator/ISimulator.hpp>
-// #include <WNS/Exception.hpp>
-
 #include <iomanip>
 #include <climits>
 #include <cfloat>
 #include <cmath>
-
-// #include <stdlib.h>
-// #include <stdio.h>
-
 #include <string.h>
-
 #include <iostream>
 #include <ios>
 
-// #include <assert.h>
-// #include <cassert>
-
 #include "stateval.hpp"
 
-// #include "Assure.hpp"
-
 using namespace std;
-
 using namespace wns::evaluation::statistics;
-
-/*STATIC_FACTORY_REGISTER_WITH_CREATOR(StatEval,
-                                     StatEvalInterface,
-                                     "wns.evaluation.statistics.StatEval",
-                                     wns::PyConfigViewCreator);*/
 
 StatEval::StatEval(formatType format,
                    std::string name,
@@ -76,22 +54,6 @@ StatEval::StatEval(formatType format,
       scalingFactor_(1.0)
 {
 }
-
-
-/*StatEval::StatEval(const wns::pyconfig::View& config) :
-    minValue_(DBL_MAX),
-    maxValue_(-DBL_MAX),
-    numTrials_(0),
-    sum_(0.0),
-    squareSum_(0.0),
-    cubeSum_(0.0),
-    format_((config.get<std::string>("format")=="scientific") ? StatEval::scientific : StatEval::fixed),
-    name_(config.get<std::string>("name")),
-    desc_(config.get<std::string>("description")),
-    prefix_(config.get<std::string>("prefix")),
-    scalingFactor_(config.get<double>("scalingFactor"))
-{
-}*/
 
 StatEval::~StatEval()
 {
@@ -441,7 +403,7 @@ StatEval::mapToStatEvalType(std::string statTypeName)
     }
     else
     {
-        //throw wns::Exception("StatEval: Unknown type '" + statTypeName + "'!");
+        cerr << "StatEval: Unknown type '" + statTypeName + "'!" << endl;
     }
 
     return statType;
@@ -525,8 +487,7 @@ StatEval::mapEvalTypeToString(statEvalType statType)
         break;
 
     default:
-
-        //throw wns::Exception("StatEval: Unknown type");
+        cerr << "StatEval: Unknown type" << endl;
         break;
     }
 
@@ -557,7 +518,7 @@ StatEval::printBanner(ostream& stream,
            << separator;
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+      cerr << errorString << endl;
     }
 
     stream << prefix + " Evaluation terminated successfully!"
@@ -565,7 +526,7 @@ StatEval::printBanner(ostream& stream,
            << separator;
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
     stream << resetiosflags(ios::fixed)
@@ -584,7 +545,7 @@ StatEval::printBanner(ostream& stream,
            << prefix + " Minimum: ";
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
     if (minValue_ == DBL_MAX)
     {
@@ -600,7 +561,7 @@ StatEval::printBanner(ostream& stream,
            << prefix + " Maximum: ";
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
     if (maxValue_ == -DBL_MAX)
     {
@@ -612,7 +573,7 @@ StatEval::printBanner(ostream& stream,
     }
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -625,7 +586,7 @@ StatEval::printBanner(ostream& stream,
            << prefix + " Mean: ";
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
     if (mean() == DBL_MAX)
     {
@@ -637,7 +598,7 @@ StatEval::printBanner(ostream& stream,
     }
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -648,7 +609,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -658,7 +619,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -668,7 +629,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -679,7 +640,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -689,7 +650,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -700,7 +661,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -711,7 +672,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -721,7 +682,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -732,7 +693,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -742,7 +703,7 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
@@ -752,9 +713,8 @@ StatEval::printBanner(ostream& stream,
 
     if (!stream)
     {
-        //throw(wns::Exception(errorString));
+        cerr << errorString << endl;
     }
 
 
 }
-

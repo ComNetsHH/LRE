@@ -28,7 +28,6 @@
 #ifndef WNS_EVALUATION_STATISTICS_DLREP_HPP
 #define WNS_EVALUATION_STATISTICS_DLREP_HPP
 
-// #include <WNS/evaluation/statistics/dlre.hpp>
 #include "dlre.hpp"
 
 namespace wns { namespace evaluation { namespace statistics {
@@ -66,12 +65,7 @@ namespace wns { namespace evaluation { namespace statistics {
                       bool forceRMinusAOk,
                       int maxNrv,
                       int skipInterval,
-                      formatType format);
-
-                /**
-                 * @brief PyConfig Constructor
-                 */
-                // DLREP(const wns::pyconfig::View& config);
+                      formatType format);                
 
                 // Destructor
                 ~DLREP();

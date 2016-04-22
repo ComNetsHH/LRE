@@ -25,23 +25,13 @@
  *
  ******************************************************************************/
 
-// #include <WNS/evaluation/statistics/dlreg.hpp>
 #include "dlreg.hpp"
 
-
 #include <cmath>
-
+#include <iostream>
 
 using namespace std;
 using namespace wns::evaluation::statistics;
-
-/*
-STATIC_FACTORY_REGISTER_WITH_CREATOR(DLREG,
-                                     StatEvalInterface,
-                                     "openwns.evaluation.statistics.DLREG",
-                                     wns::PyConfigViewCreator);
-*/
-
 
 DLREG::DLREG(std::vector<double> xValuesArr,
              int level,
@@ -80,18 +70,6 @@ DLREG::DLREG(double xMin,
     curLevelIndex_ = indexMin_;
 }
 
-
-/*
-//! omnipotent pyconfig constructor
-DLREG::DLREG(const wns::pyconfig::View& config) :
-    DLRE(config),
-    gMin_(config.get<double>("minLevel"))
-{
-    curLevelIndex_ = indexMin_;
-}
-
-*/
-
 //! Destructor
 DLREG::~DLREG()
 {
@@ -116,7 +94,6 @@ DLREG::put(double value)
 
         if (curIndex_ == noIndex)
         {
-           // throw wns::Exception("Warning: Wrong x value in DLREG::put !");
            cerr << "Warning: Wrong x value in DLREG::put !" << endl;
            return;
         }
@@ -240,9 +217,8 @@ DLREG::getResultLine(const int index, ResultLine& line) const
 {
     if ((index < minIndex()) or (index > maxIndex()))
     {
-       // throw wns::Exception("DLREG::getResult(): index out of range.");
        cerr << "DLREG::getResult(): index out of range." << endl;
-        return;
+       return;
     }
 
     double nf = double(numTrials_);
