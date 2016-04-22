@@ -26,10 +26,17 @@
  ******************************************************************************/
 
 #include <cmath>
+
+// #include <WNS/evaluation/statistics/dlrep.hpp>
 #include "dlrep.hpp"
 
 using namespace std;
 using namespace wns::evaluation::statistics;
+
+// STATIC_FACTORY_REGISTER_WITH_CREATOR(DLREP,
+//                                      StatEvalInterface,
+//                                      "openwns.evaluation.statistics.DLREP",
+//                                      wns::PyConfigViewCreator);
 
 DLREP::DLREP(std::vector<double> xValuesArr,
              int level,
@@ -76,6 +83,24 @@ DLREP::DLREP(double xMin,
         preIndex_ = indexMax_;
     }
 }
+
+/*
+//! omnipotent pyconfig constructor
+DLREP::DLREP(const wns::pyconfig::View& config) :
+    DLRE(config)
+{
+    double preFirst = config.get<double>("initValue");
+
+    if (preFirst < xMin_)
+    {
+        preIndex_ = indexMin_ - 1;
+    }
+    else if (preFirst > xMax_)
+    {
+        preIndex_ = indexMax_;
+    }
+}
+*/
 
 //! Destructor
 DLREP::~DLREP()

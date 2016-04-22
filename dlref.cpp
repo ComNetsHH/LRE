@@ -25,11 +25,17 @@
  *
  ******************************************************************************/
 
+// #include <WNS/evaluation/statistics/dlref.hpp>
 #include "dlref.hpp"
 #include <cmath>
 
 using namespace std;
 using namespace wns::evaluation::statistics;
+
+// STATIC_FACTORY_REGISTER_WITH_CREATOR(DLREF,
+//                                      StatEvalInterface,
+//                                      "openwns.evaluation.statistics.DLREF",
+//                                      wns::PyConfigViewCreator);
 
 DLREF::DLREF(std::vector<double> xValuesArrPtr,
              int level,
@@ -66,6 +72,15 @@ DLREF::DLREF(double xMin,
 {
     curLevelIndex_ = indexMax_ - 1;
 }
+
+/*
+DLREF::DLREF(const wns::pyconfig::View& config) :
+    DLRE(config),
+    fMin_(config.get<double>("minLevel"))
+{
+    curLevelIndex_ = indexMax_ - 1;
+}
+*/
 
 DLREF::~DLREF()
 {}

@@ -25,11 +25,23 @@
  *
  ******************************************************************************/
 
+// #include <WNS/evaluation/statistics/dlreg.hpp>
 #include "dlreg.hpp"
+
+
 #include <cmath>
+
 
 using namespace std;
 using namespace wns::evaluation::statistics;
+
+/*
+STATIC_FACTORY_REGISTER_WITH_CREATOR(DLREG,
+                                     StatEvalInterface,
+                                     "openwns.evaluation.statistics.DLREG",
+                                     wns::PyConfigViewCreator);
+*/
+
 
 DLREG::DLREG(std::vector<double> xValuesArr,
              int level,
@@ -67,6 +79,18 @@ DLREG::DLREG(double xMin,
 {
     curLevelIndex_ = indexMin_;
 }
+
+
+/*
+//! omnipotent pyconfig constructor
+DLREG::DLREG(const wns::pyconfig::View& config) :
+    DLRE(config),
+    gMin_(config.get<double>("minLevel"))
+{
+    curLevelIndex_ = indexMin_;
+}
+
+*/
 
 //! Destructor
 DLREG::~DLREG()

@@ -28,14 +28,22 @@
 #ifndef WNS_EVALUATION_STATISTICS_DLRE_HPP
 #define WNS_EVALUATION_STATISTICS_DLRE_HPP
 
+//#include <WNS/evaluation/statistics/stateval.hpp>
+
+
 #include <cstdlib>
 #include <climits>
 #include <cfloat>
 #include <iomanip>
+
 #include <iostream>
 #include <ios>
+
 #include <vector>
+
 #include "stateval.hpp"
+
+// #include "Assure.hpp"
 
 namespace wns { namespace evaluation { namespace statistics {
             /**
@@ -157,10 +165,20 @@ namespace wns { namespace evaluation { namespace statistics {
                  */
                 virtual int
                 maxIndex() const;
-                
+
+                /**
+                 * @brief Put new value to probe
+                 */
+/*
+// FL
+                virtual void
+                put(double value) = 0;
+*/
                 /**
                  * @brief Return result line
                  */
+
+// FL
                 virtual void
                 getResultLine(const int index, ResultLine& line) const = 0;
 
@@ -168,7 +186,7 @@ namespace wns { namespace evaluation { namespace statistics {
                 print(std::ostream& stream = std::cout) const = 0;
 
             protected:
-                enum Phase
+                enum Phase 
                 {
                     initialize,
                     iterate,

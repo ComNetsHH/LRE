@@ -8,9 +8,10 @@
 #include <boost/shared_ptr.hpp>
 #include "boost/program_options.hpp"
 
-const int   MODE_DLREF = 0,
-            MODE_DLREG = 1,
-            MODE_DLREP = 2;
+const int   TYPE_DLRE = 0,
+            TYPE_DLREF = 1,
+            TYPE_DLREG = 2,
+            TYPE_DLREP = 3;
 
 /**
 * Wraps LRE functionality so it can be passed to Python or used natively.
@@ -21,13 +22,13 @@ private:
     boost::shared_ptr<DLRE> evaluator;
 
     /** Common initialization for all constructors. */
-    void init(int mode, double xMin, double xMax, double intSize, double error,
+    void init(int type, double xMin, double xMax, double intSize, double error,
                     double preFirst, double gMin,
                     bool forceRMinusAOk, int maxNrv, int skipInterval) {
         std::string name, description;
         wns::evaluation::statistics::StatEval::formatType format;
-        switch (mode) {
-            case MODE_DLREF:
+        switch (type) {
+            case 0:
                 name = "DLREF";
                 description = "";
                 evaluator.reset(new DLREF(
@@ -45,7 +46,7 @@ private:
                                 format
                 ));
                 break;
-            case MODE_DLREG:
+            case 1:
                 name = "DLREG";
                 description = "Equidistant";
                 evaluator.reset(new DLREG(
@@ -63,7 +64,7 @@ private:
                                 format
                 ));
                 break;
-            case MODE_DLREP:
+            case 2:
                 name = "DLREP";
                 description = "Probability Function";
                 evaluator.reset(new DLREP(
@@ -82,22 +83,22 @@ private:
                 ));
                 break;
             default:
-                cerr << "Invalid evaluator mode: " << mode << endl;
+                cerr << "Invalid evaluator type: " << type << endl;
                 exit(-1);
         }
     }
 
 public:
     /** Full constructor. */
-    Evaluator(int mode, double xMin, double xMax, double intSize, double error,
+    Evaluator(int type, double xMin, double xMax, double intSize, double error,
                     double preFirst, double gMin,
                     bool forceRMinusAOk, int maxNrv, int skipInterval) {
-            this->init(mode, xMin, xMax, intSize, error, preFirst, gMin, forceRMinusAOk, maxNrv,  skipInterval);
+            this->init(type, xMin, xMax, intSize, error, preFirst, gMin, forceRMinusAOk, maxNrv,  skipInterval);
     }
 
     /** Convenience constructor for default values. */
-    Evaluator(int mode, double xMin, double xMax){
-        this->init(mode, xMin, xMax, 0.01, 0.05, 0.1, 1E-2, 0, 100000, 0);
+    Evaluator(int type, double xMin, double xMax){
+        this->init(type, xMin, xMax, 0.01, 0.05, 0.1, 1E-2, 0, 100000, 0);
     }
 
     /** Puts new variable to probe. */
@@ -105,7 +106,7 @@ public:
         this->evaluator->put(value);
     }
 
-    void print() {
+    void printResult() {
         std::ostream &stream = cout;
         this->evaluator->print(stream);
     }
@@ -115,21 +116,15 @@ public:
     Python wrapper.
 */
 BOOST_PYTHON_MODULE(LRE) {
+    // init creates a Python constructor.
     boost::python::class_<Evaluator>("Evaluator",
-        // Full constructor.
         boost::python::init<int, double, double, double, double, double, double, bool, int, int>())
-        // Convenience constructor.
         .def(boost::python::init<int, double, double>())
-        // Put value to proble.
         .def("put", &Evaluator::put)
-        // Print results.
-        .def("print", &Evaluator::print)
+        .def("printResult", &Evaluator::printResult)
     ;
 }
 
-/**
-* Parses command line parameters using boost::program_options.
-*/
 boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
     namespace po = boost::program_options;
     po::options_description desc("LRE Options");
@@ -145,7 +140,7 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
         ("gMin", po::value<double>()->default_value(1E-2), "")
         ("maxNrv", po::value<int>()->default_value(100000), "Maximum #samples")
         ("skipInterval", po::value<int>()->default_value(0), "")
-        ("mode", po::value<int>()->default_value(2), "0 = DLREF\n1 = DLREG (Equidistant)\n2 = DLREP (Probability Function)")
+        ("type", po::value<int>()->default_value(2), "0 = DLREF\n1 = DLREG (Equidistant)\n2 = DLREP (Probability Function)")
     ;
 
     po::variables_map vm;
@@ -159,18 +154,22 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
 
     if (!vm.count("file")) {
         cerr << "No input filename." << endl;
+        cout << desc << "\n";
         exit(-1);
     }
     if (!vm.count("xMin")) {
         cerr << "No xMin provided." << endl;
+        cout << desc << "\n";
         exit(-1);
     }
     if (!vm.count("xMax")) {
         cerr << "No xMax provided." << endl;
+        cout << desc << "\n";
         exit(-1);
     }
-    if (vm["mode"].as<int>() < 0 || vm["mode"].as<int>() > 2) {
-        cerr << "Invalid mode: " << vm["mode"].as<int>() << endl;
+    if (vm["type"].as<int>() < 0 || vm["type"].as<int>() > 2) {
+        cerr << "Invalid type: " << vm["type"].as<int>() << endl;
+        cout << desc << "\n";
         exit(-1);
     }
 
@@ -179,9 +178,8 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     boost::program_options::variables_map vm = parseCommandLine(argc, argv);
-    Evaluator evaluator(vm["mode"].as<int>(), vm["xMin"].as<int>(), vm["xMax"].as<int>(), vm["intSize"].as<double>(),
-        vm["error"].as<double>(), vm["preFirst"].as<double>(), vm["gMin"].as<double>(), vm["forceRMinusAOk"].as<int>(),
-        vm["maxNrv"].as<int>(), vm["skipInterval"].as<int>());
+    Evaluator evaluator(vm["type"].as<int>(), vm["xMin"].as<int>(), vm["xMax"].as<int>(), vm["intSize"].as<double>(),
+        vm["error"].as<double>(), vm["preFirst"].as<double>(), vm["gMin"].as<double>(), vm["forceRMinusAOk"].as<int>(), vm["maxNrv"].as<int>(), vm["skipInterval"].as<int>());
     FILE* file = fopen(vm["file"].as<string>().c_str(), "r");
     if (file != NULL) {
          char str[256];
@@ -192,9 +190,9 @@ int main(int argc, char *argv[]) {
         }
         fclose(file);
     } else {
-        cerr << "Error reading file: " << vm["file"].as<string>() << endl;
+        cerr << "File couldn't be found." << endl;
         return -1;
     }
-    evaluator.print();
+    evaluator.printResult();
     return 0;
 }

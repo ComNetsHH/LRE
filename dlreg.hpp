@@ -28,14 +28,16 @@
 #ifndef WNS_EVALUATION_STATISTICS_DLREG_HPP
 #define WNS_EVALUATION_STATISTICS_DLREG_HPP
 
+
+// #include <WNS/evaluation/statistics/dlre.hpp>
 #include "dlre.hpp"
 
 namespace wns { namespace evaluation { namespace statistics {
-
             /**
              * @brief Class DLREG: Discrete LRE (LRE III) for complementary
              * distribution function
              */
+
             class DLREG : public DLRE
             {
             public:
@@ -70,6 +72,8 @@ namespace wns { namespace evaluation { namespace statistics {
                       int maxNrv,
                       int skipInterval,
                       formatType aFormat);
+
+//                DLREG(const wns::pyconfig::View& config);
 
                 ~DLREG();
 

@@ -25,6 +25,7 @@
  *
  ******************************************************************************/
 
+// #include <WNS/evaluation/statistics/dlre.hpp>
 #include "dlre.hpp"
 
 #include <cmath>
@@ -236,6 +237,75 @@ DLRE::initEqui(double xMin,
         }
     }
 }
+
+/*
+DLRE::DLRE(const wns::pyconfig::View& config) :
+    StatEval(config),
+    results_(NULL),
+    relErrMax_(config.get<double>("maxError")),
+    maxNrv_(UINT_MAX),
+    wastedLeft_(0),
+    wastedRight_(0),
+    h_(0),
+    xOffset_(0),
+    xMin_(-1.0),
+    xMax_(-1.0),
+    indexMin_(0),
+    indexMax_(0),
+    equiDist_(true),
+    intSize_(-1.0),
+    curIndex_(0),
+    preRv_(config.get<double>("initValue")),
+    preIndex_(0),
+    base_(1.0),
+    reason_(ok),
+    curLevelIndex_(0),
+    skipInterval_(config.get<int>("skipInterval")),
+    forceRminusAOK_(config.get<bool>("forceRminusAOK")),
+    phase_(initialize)
+{
+    if (config.get<string>("maxNumTrials") != "infinity")
+    {
+        maxNrv_ = config.get<int>("maxNumTrials");
+    }
+
+    if (config.get<string>("distances") == "equi")
+    {
+        // equidistant x-values
+        equiDist_ = true;
+        xMin_ = config.get<double>("xMin");
+        xMax_ = config.get<double>("xMax");
+        intSize_ = config.get<double>("intervalWidth");
+
+        this->initEqui(xMin_,
+                       xMax_,
+                       intSize_,
+                       config.get<double>("initValue") );
+
+    }
+    else if (config.get<string>("distances") == "nonequi")
+    {
+        // non-equidistant x-values
+        equiDist_ = false;
+        vector<double> xValuesArr;
+        int numXValues = config.len("xValues");
+        for (int ii=0; ii<numXValues; ++ii)
+        {
+            xValuesArr.push_back(config.get<double>("xValues",ii));
+        }
+
+        this->initNonEqui(numXValues,
+                          xValuesArr,
+                          config.get<double>("initValue"));
+    }
+    else
+    {
+        string errorString = ("Unknown 'distances' setting '" + config.get<string>("distances") + "'\n");
+        // throw(wns::Exception(errorString));
+    }
+}
+
+*/
 
 //! Destructor
 DLRE::~DLRE()
@@ -900,3 +970,4 @@ void DLRE::printLevel(ostream& stream,
     }
     stream << endl;
 }
+
