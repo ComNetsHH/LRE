@@ -7,3 +7,6 @@ Compile both binary and library:
 
 Running this should output some stuff:
   python LRE_Test.py
+
+Which should look exactly like the output of this:
+  ./LRE --file input.txt --xMin 0 --xMax 1

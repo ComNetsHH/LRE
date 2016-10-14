@@ -1,5 +1,5 @@
 import LRE
-lre = LRE.Evaluator(2, # Type. 0=DLRE 1=DLREF 2=DLREG 3=DLREP
+lre = LRE.Evaluator(2, # Type. 0=DLREF 1=DLREG 2=DLREP
                     0.0, # xMin
                     1.0, # xMax
                     0.01, # intSize
