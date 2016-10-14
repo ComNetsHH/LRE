@@ -8,10 +8,9 @@
 #include <boost/shared_ptr.hpp>
 #include "boost/program_options.hpp"
 
-const int   TYPE_DLRE = 0,
-            TYPE_DLREF = 1,
-            TYPE_DLREG = 2,
-            TYPE_DLREP = 3;
+const int   TYPE_DLREF = 0,
+            TYPE_DLREG = 1,
+            TYPE_DLREP = 2;
 
 /**
 * Wraps LRE functionality so it can be passed to Python or used natively.
@@ -28,7 +27,7 @@ private:
         std::string name, description;
         wns::evaluation::statistics::StatEval::formatType format;
         switch (type) {
-            case 0:
+            case TYPE_DLREF:
                 name = "DLREF";
                 description = "";
                 evaluator.reset(new DLREF(
@@ -46,7 +45,7 @@ private:
                                 format
                 ));
                 break;
-            case 1:
+            case TYPE_DLREG:
                 name = "DLREG";
                 description = "Equidistant";
                 evaluator.reset(new DLREG(
@@ -64,7 +63,7 @@ private:
                                 format
                 ));
                 break;
-            case 2:
+            case TYPE_DLREP:
                 name = "DLREP";
                 description = "Probability Function";
                 evaluator.reset(new DLREP(
