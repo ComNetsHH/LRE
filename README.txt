@@ -1,6 +1,9 @@
-sudo apt-get install libboost-program-options-dev libboost-python-dev python-dev libpython2.7
+Install needed programs:
+  sudo apt-get install libboost-program-options-dev libboost-python-dev python-dev libpython2.7
 
-g++ LRE.cpp -I/usr/include/python2.7 -lpython2.7 -lboost_python -lboost_program_options -o LRE.so -shared -std=c++11 -fPIC
-g++ LRE.cpp -I/usr/include/python2.7 -lpython2.7 -lboost_python -lboost_program_options -o LRE -std=c++11
+Compile both binary and library:
+  make // For python v2.7
+  make LRE3.5 // For python v3.5m
 
-python LRE_Test.py
+Running this should output some stuff:
+  python LRE_Test.py
