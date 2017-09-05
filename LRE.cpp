@@ -8,9 +8,10 @@
 #include <boost/shared_ptr.hpp>
 #include "boost/program_options.hpp"
 
-const int   TYPE_DLREF = 0,
-            TYPE_DLREG = 1,
-            TYPE_DLREP = 2;
+const int   TYPE_DLRE = 0,
+            TYPE_DLREF = 1,
+            TYPE_DLREG = 2,
+            TYPE_DLREP = 3;
 
 /**
 * Wraps LRE functionality so it can be passed to Python or used natively.
@@ -27,7 +28,7 @@ private:
         std::string name, description;
         wns::evaluation::statistics::StatEval::formatType format;
         switch (type) {
-            case TYPE_DLREF:
+            case 0:
                 name = "DLREF";
                 description = "";
                 evaluator.reset(new DLREF(
@@ -45,7 +46,7 @@ private:
                                 format
                 ));
                 break;
-            case TYPE_DLREG:
+            case 1:
                 name = "DLREG";
                 description = "Equidistant";
                 evaluator.reset(new DLREG(
@@ -63,7 +64,7 @@ private:
                                 format
                 ));
                 break;
-            case TYPE_DLREP:
+            case 2:
                 name = "DLREP";
                 description = "Probability Function";
                 evaluator.reset(new DLREP(
@@ -130,17 +131,18 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
     desc.add_options()
         ("help", "This help message")
         ("file", po::value<string>(), "Input filename")
-        ("xMin", po::value<int>(), "Minimum x value")
-        ("xMax", po::value<int>(), "Maximum x value")
-        ("intSize", po::value<double>()->default_value(0.01), "Interval size")
-        ("error", po::value<double>()->default_value(0.05), "Maximum relative error")
-        ("preFirst", po::value<double>()->default_value(0.1), "")
-        ("forceRMinusAOk", po::value<int>()->default_value(0), "")
-        ("gMin", po::value<double>()->default_value(1E-2), "")
-        ("maxNrv", po::value<int>()->default_value(100000), "Maximum #samples")
-        ("skipInterval", po::value<int>()->default_value(0), "")
-        ("type", po::value<int>()->default_value(2), "0 = DLREF\n1 = DLREG (Equidistant)\n2 = DLREP (Probability Function)")
+        ("xMin", po::value<int>(), "Minimum value on x-axis")
+        ("xMax", po::value<int>(), "Maximum value on x-axis")
+        ("intSize", po::value<double>(), "Size of each bin on x-axis")
+        ("error", po::value<double>()->default_value(0.05), "Maximum allowed relative error")
+        ("preFirst", po::value<double>()->default_value(0.0), "Initial state-value on x-axis (usually has no influence)")
+        ("forceRMinusAOk", po::value<int>()->default_value(0), "Enforce Large Sample Condition. If disabled still 10 transitions per bin will be required for confident result.")
+        ("gMin", po::value<double>()->default_value(1E-5), "Minimum value on y-axis determined with less than the maximum allowed relative error (intended reliability)")
+        ("maxNrv", po::value<int>()->default_value(100000000), "Maximum number of samples to be considered (after this evaluation will stop and each bin will be evaluated if result is confident)")
+        ("skipInterval", po::value<int>()->default_value(0), "Evaluating if result is confident for each bin is expensive, if >0 evaluation will only be done every n samples")
+        ("type", po::value<int>()->default_value(2), "0 = DLREF (CDF)\n1 = DLREG (CCDF)\n2 = DLREP (PDF)")
     ;
+
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
