@@ -5,7 +5,7 @@ Standalone implementation of the Limited Relative Error algorithm including a Py
 
 Install dependencies (most Debian-based systems)
 
-    sudo apt-get install libboost-program-options-dev libboost-python-dev python-dev libpython2.7
+    sudo apt-get install build-essential libboost-program-options-dev libboost-python-dev python-dev libpython2.7
 
 Compile both, binary and library
 
