@@ -1,3 +1,32 @@
+/*******************************************************************************
+ * This file is part of ComNets LRE (Limited Reletive Error) Algorithm
+ * _____________________________________________________________________________
+ *
+ * Copyright (C) 2017
+ * Institute of Communication Networks (ComNets)
+ * Am Schwarzenberg-Campus 3, D-21073 Hamburg, Germany
+ * phone: ++49-40-42878-3249,
+ * fax: ++49-40-42878-2941
+ * email: ComNets@tuhh.de
+ * www: http://www.tuhh.de/comnets
+ * 
+_____________________________________________________________________________
+ *
+ * ComNets LRE is free software; you can redistribute it and/or modify it under the
+ * terms of the GNU Lesser General Public License version 2.1 as published by the
+ * Free Software Foundation;
+ *
+ * ComNets LRE is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #include <Python.h>
 #include <boost/python.hpp>
 #include "stateval.cpp"
