@@ -9,8 +9,9 @@ Install dependencies (most Debian-based systems)
 
 Compile both, binary and library
 
-    make 		// For python v2.7
+    make LRE // For python v2.7
     make LRE3.5 // For python v3.5
+    make LRE3.6 // For python v3.6
 
 Running this should show some output
 
