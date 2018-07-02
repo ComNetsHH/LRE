@@ -19,4 +19,4 @@ Running this should show some output
 
 Which should look exactly like the output of
 
-    ./LRE --file input.txt --xMin 0 --xMax 1
+    ./LRE --file input.txt --xMin 0 --xMax 500
