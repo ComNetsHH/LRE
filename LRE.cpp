@@ -9,7 +9,7 @@
  * fax: ++49-40-42878-2941
  * email: ComNets@tuhh.de
  * www: http://www.tuhh.de/comnets
- * 
+ *
 _____________________________________________________________________________
  *
  * ComNets LRE is free software; you can redistribute it and/or modify it under the
@@ -162,7 +162,7 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
         ("file", po::value<string>(), "Input filename")
         ("xMin", po::value<int>(), "Minimum value on x-axis")
         ("xMax", po::value<int>(), "Maximum value on x-axis")
-        ("intSize", po::value<double>(), "Size of each bin on x-axis")
+        ("intSize", po::value<double>()->default_value(1.0), "Size of each bin on x-axis")
         ("error", po::value<double>()->default_value(0.05), "Maximum allowed relative error")
         ("preFirst", po::value<double>()->default_value(0.0), "Initial state-value on x-axis (usually has no influence)")
         ("forceRMinusAOk", po::value<int>()->default_value(0), "Enforce Large Sample Condition. If disabled still 10 transitions per bin will be required for confident result.")
@@ -206,7 +206,7 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
     return vm;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {  
     boost::program_options::variables_map vm = parseCommandLine(argc, argv);
     Evaluator evaluator(vm["type"].as<int>(), vm["xMin"].as<int>(), vm["xMax"].as<int>(), vm["intSize"].as<double>(),
         vm["error"].as<double>(), vm["preFirst"].as<double>(), vm["gMin"].as<double>(), vm["forceRMinusAOk"].as<int>(), vm["maxNrv"].as<int>(), vm["skipInterval"].as<int>());
