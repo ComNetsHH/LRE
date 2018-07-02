@@ -12,14 +12,13 @@ INCLUDE3.6 = -I/usr/include/python3.6m
 LIBRARIES3.6 = -lpython3.6m -lboost_python3 -lboost_program_options
 
 LRE : *.cpp *.hpp
-	$(CC) $(INCLUDE2.7) LRE.cpp -o LRE $(LIBRARIES2.7)
-	$(CC) $(INCLUDE2.7) LRE.cpp -o LRE.so $(LIBRARIES2.7) -shared -fPIC
+	$(CC) $(INCLUDE2.7) *.cpp -o LRE $(LIBRARIES2.7)
+	$(CC) $(INCLUDE2.7) *.cpp -o LRE.so $(LIBRARIES2.7) -shared -fPIC
 
 LRE3.5 : *.cpp *.hpp
-	$(CC) $(INCLUDE3.5) LRE.cpp -o LRE $(LIBRARIES3.5)
-	$(CC) $(INCLUDE3.5) LRE.cpp -o LRE.so $(LIBRARIES3.5) -shared -fPIC
+	$(CC) $(INCLUDE3.5) *.cpp -o LRE $(LIBRARIES3.5)
+	$(CC) $(INCLUDE3.5) *.cpp -o LRE.so $(LIBRARIES3.5) -shared -fPIC
 
 LRE3.6 : *.cpp *.hpp
-	$(CC) $(INCLUDE3.6) LRE.cpp -o LRE $(LIBRARIES3.6)
-	$(CC) $(INCLUDE3.6) LRE.cpp -o LRE.so $(LIBRARIES3.6) -shared -fPIC
-
+	$(CC) $(INCLUDE3.6) *.cpp -o LRE $(LIBRARIES3.6)
+	$(CC) $(INCLUDE3.6) *.cpp -o LRE.so $(LIBRARIES3.6) -shared -fPIC

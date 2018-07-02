@@ -1,10 +1,12 @@
 #ifndef LREEVALUATOR_HPP
 #define LREEVALUATOR_HPP
 
-#include "dlre.cpp"
-#include "dlref.cpp"
-#include "dlreg.cpp"
-#include "dlrep.cpp"
+#include "dlre.hpp"
+#include "dlref.hpp"
+#include "dlreg.hpp"
+#include "dlrep.hpp"
+#include "stateval.hpp"
+#include <boost/shared_ptr.hpp>
 
 /**
 * Wraps LRE functionality into object.
@@ -12,7 +14,7 @@
 class LREEvaluator {
 private:
     /** DLRE inside a smart pointer. Needs to be a copyable pointer. */
-    boost::shared_ptr<DLRE> evaluator;
+    boost::shared_ptr<wns::evaluation::statistics::DLRE> evaluator;
 
     /** Common initialization for all constructors. */
     void init(int type, double xMin, double xMax, double intSize, double error,
@@ -24,7 +26,7 @@ private:
             case 0:
                 name = "DLREF";
                 description = "";
-                evaluator.reset(new DLREF(
+                evaluator.reset(new wns::evaluation::statistics::DLREF(
                                 xMin,
                                 xMax,
                                 intSize,
@@ -42,7 +44,7 @@ private:
             case 1:
                 name = "DLREG";
                 description = "Equidistant";
-                evaluator.reset(new DLREG(
+                evaluator.reset(new wns::evaluation::statistics::DLREG(
                                 xMin,
                                 xMax,
                                 intSize,
@@ -60,7 +62,7 @@ private:
             case 2:
                 name = "DLREP";
                 description = "Probability Function";
-                evaluator.reset(new DLREP(
+                evaluator.reset(new wns::evaluation::statistics::DLREP(
                                 xMin,
                                 xMax,
                                 intSize,
@@ -76,7 +78,7 @@ private:
                 ));
                 break;
             default:
-                cerr << "Invalid evaluator type: " << type << endl;
+                std::cerr << "Invalid evaluator type: " << type << std::endl;
                 exit(-1);
         }
     }
@@ -105,7 +107,7 @@ public:
     }
 
     void printResult() {
-        std::ostream &stream = cout;
+        std::ostream &stream = std::cout;
         this->evaluator->print(stream);
     }
 };

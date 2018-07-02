@@ -32,6 +32,7 @@
 #include <string.h>
 #include <iostream>
 #include <ios>
+#include <cassert>
 
 #include "stateval.hpp"
 
