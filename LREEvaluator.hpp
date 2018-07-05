@@ -23,7 +23,7 @@ private:
         std::string name, description;
         wns::evaluation::statistics::StatEval::formatType format;
         switch (type) {
-            case 0:
+            case 1:
                 name = "DLREF";
                 description = "";
                 evaluator.reset(new wns::evaluation::statistics::DLREF(
@@ -41,7 +41,7 @@ private:
                                 format
                 ));
                 break;
-            case 1:
+            case 2:
                 name = "DLREG";
                 description = "Equidistant";
                 evaluator.reset(new wns::evaluation::statistics::DLREG(
@@ -59,7 +59,7 @@ private:
                                 format
                 ));
                 break;
-            case 2:
+            case 3:
                 name = "DLREP";
                 description = "Probability Function";
                 evaluator.reset(new wns::evaluation::statistics::DLREP(
@@ -84,10 +84,10 @@ private:
     }
 
 public:
-  const int   TYPE_DLRE = 0,
-              TYPE_DLREF = 1,
-              TYPE_DLREG = 2,
-              TYPE_DLREP = 3;
+  static const int   TYPE_DLRE = 0,
+                     TYPE_DLREF = 1,
+                     TYPE_DLREG = 2,
+                     TYPE_DLREP = 3;
 
     /** Full constructor. */
     LREEvaluator(int type, double xMin, double xMax, double intSize, double error,
