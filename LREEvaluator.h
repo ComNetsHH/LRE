@@ -15,7 +15,7 @@
 * Wraps LRE functionality into object.
 */
 class LREEvaluator {
-private:
+protected:
     /** DLRE inside a smart pointer. Needs to be a copyable pointer. */
     boost::shared_ptr<wns::evaluation::statistics::DLRE> evaluator;
     double last_x_level = -DBL_MAX;

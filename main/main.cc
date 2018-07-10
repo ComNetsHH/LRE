@@ -30,7 +30,7 @@ _____________________________________________________________________________
 #include <Python.h>
 #include <boost/python.hpp>
 #include "boost/program_options.hpp"
-#include "LREEvaluator.h"
+#include "../LREEvaluator.h"
 
 /**
     Python wrapper.

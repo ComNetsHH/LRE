@@ -170,15 +170,17 @@ namespace wns { namespace evaluation { namespace statistics {
                 virtual void
                 print(std::ostream& stream = std::cout) const = 0;
 
-            protected:
-                enum Phase
-                {
+                enum Phase {
                     initialize,
                     iterate,
                     finish
-                }
-                phase_;
+                } phase_;
 
+                const wns::evaluation::statistics::DLRE::Phase& getPhase() const {
+                    return phase_;
+                }
+
+            protected:
                 /**
                  * @brief Class DLRE::Result: results for one x interval
                  */
