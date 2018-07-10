@@ -30,7 +30,7 @@ _____________________________________________________________________________
 #include <Python.h>
 #include <boost/python.hpp>
 #include "boost/program_options.hpp"
-#include "LREEvaluator.hpp"
+#include "LREEvaluator.h"
 
 /**
     Python wrapper.
@@ -117,3 +117,4 @@ int main(int argc, char *argv[]) {
     evaluator.printResult();
     return 0;
 }
+

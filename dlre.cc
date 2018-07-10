@@ -25,7 +25,7 @@
  *
  ******************************************************************************/
 
-#include "dlre.hpp"
+#include "dlre.h"
 
 #include <cmath>
 #include <algorithm>

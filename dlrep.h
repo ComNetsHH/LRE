@@ -25,30 +25,29 @@
  *
  ******************************************************************************/
 
-#ifndef WNS_EVALUATION_STATISTICS_DLREF_HPP
-#define WNS_EVALUATION_STATISTICS_DLREF_HPP
+#ifndef WNS_EVALUATION_STATISTICS_DLREP_HPP
+#define WNS_EVALUATION_STATISTICS_DLREP_HPP
 
-#include "dlre.hpp"
+#include "dlre.h"
 
 namespace wns { namespace evaluation { namespace statistics {
             /**
-             * @brief Class DLREF: Discrete LRE (LRE III) for distribution function
+             * @brief Class DLREP: Discrete LRE (LRE III), probability function
              */
-            class DLREF : public DLRE
+            class DLREP : public DLRE
             {
             public:
 
                 /**
                  * @brief Constructor for non-equi-distant x-values
                  */
-                DLREF(std::vector<double> xValues,
+                DLREP(std::vector<double> xValuesArr,
                       int level,
                       double error,
                       double preFirst,
                       std::string name,
                       std::string description,
                       bool forceRMinusAOk,
-                      double fMin,
                       int maxNrv,
                       int skipInterval,
                       formatType format);
@@ -56,7 +55,7 @@ namespace wns { namespace evaluation { namespace statistics {
                 /**
                  * @brief Constructor for equi-distant x-values
                  */
-                DLREF(double xMin,
+                DLREP(double xMin,
                       double xMax,
                       double intSize,
                       double error,
@@ -64,60 +63,36 @@ namespace wns { namespace evaluation { namespace statistics {
                       std::string name,
                       std::string description,
                       bool forceRMinusAOk,
-                      double fMin,
                       int maxNrv,
                       int skipInterval,
                       formatType format);
 
-                ~DLREF();
+                // Destructor
+                ~DLREP();
 
-                /**
-                 * @brief Print output
-                 */
+                /** @brief Print output */
                 virtual void
-                print(std::ostream& stream = std::cout) const;
+                print(std::ostream& aStreamRef = std::cout) const;
 
-                /**
-                 * @brief Put new value to probe
-                 */
+                /** @brief put new value to probe */
                 void
                 put(double value);
 
-                /**
-                 * @brief Return current f-level
-                 */
-                virtual double
-                curFLev();
-
-                /**
-                 * @brief Return the f-level of x(t)
-                 */
-                virtual double
-                f(double xt);
-
-                /**
-                 * @brief Result line
-                 */
+                /** @brief Result line */
                 virtual void
                 getResultLine(const int index, ResultLine& line) const;
 
-                /**
-                 * @brief Change max. error
-                 */
+                /** @brief Change max error */
                 virtual void
                 changeError(double newError);
 
             private:
 
-                // runtime control
-                DLRE::Phase
-                rtc();
-
-                // minimum f level
-                double fMin_;
+                // run time control
+                DLRE::Phase rtc();
             };
-        }
-    }
-}
 
-#endif  // WNS_EVALUATION_STATISTICS_DLREF_HPP
+} // end namespace statistics
+} // end namespace evaluation
+} // end namespace wns
+#endif  // WNS_EVALUATION_STATISTICS_DLREP_HPP

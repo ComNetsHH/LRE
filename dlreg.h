@@ -28,7 +28,7 @@
 #ifndef WNS_EVALUATION_STATISTICS_DLREG_HPP
 #define WNS_EVALUATION_STATISTICS_DLREG_HPP
 
-#include "dlre.hpp"
+#include "dlre.h"
 
 namespace wns { namespace evaluation { namespace statistics {
             /**

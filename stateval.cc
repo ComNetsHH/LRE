@@ -34,7 +34,7 @@
 #include <ios>
 #include <cassert>
 
-#include "stateval.hpp"
+#include "stateval.h"
 
 using namespace std;
 using namespace wns::evaluation::statistics;

@@ -38,7 +38,7 @@
 
 #include <vector>
 
-#include "stateval.hpp"
+#include "stateval.h"
 
 namespace wns { namespace evaluation { namespace statistics {
             /**
