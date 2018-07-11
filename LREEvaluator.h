@@ -105,8 +105,7 @@ public:
         this->init(type, xMin, xMax, 0.01, 0.05, 0.1, 1E-2, 0, 100000, 0);
     }
 
-    ~LREEvaluator() {
-        printResult();
+    virtual ~LREEvaluator() {
     }
 
     /** Puts new variable to probe. */
