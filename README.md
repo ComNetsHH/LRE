@@ -1,5 +1,8 @@
 # LRE
-Standalone implementation of the Limited Relative Error algorithm including a Python wrapper
+Standalone implementation of the Limited Relative Error algorithm, including a Python wrapper.
+
+[![DOI](https://zenodo.org/badge/102000011.svg)](https://zenodo.org/badge/latestdoi/102000011)
+
 
 ## Compilation & Verification
 
