@@ -51,8 +51,8 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
     desc.add_options()
         ("help", "This help message")
         ("file", po::value<std::string>(), "Input filename")
-        ("xMin", po::value<int>(), "Minimum value on x-axis")
-        ("xMax", po::value<int>(), "Maximum value on x-axis")
+        ("xMin", po::value<double>(), "Minimum value on x-axis")
+        ("xMax", po::value<double>(), "Maximum value on x-axis")
         ("intSize", po::value<double>()->default_value(1.0), "Size of each bin on x-axis")
         ("error", po::value<double>()->default_value(0.05), "Maximum allowed relative error")
         ("preFirst", po::value<double>()->default_value(0.0), "Initial state-value on x-axis (usually has no influence)")
@@ -99,7 +99,7 @@ boost::program_options::variables_map parseCommandLine(int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     boost::program_options::variables_map vm = parseCommandLine(argc, argv);
-    LREEvaluator evaluator(vm["type"].as<int>(), vm["xMin"].as<int>(), vm["xMax"].as<int>(), vm["intSize"].as<double>(),
+    LREEvaluator evaluator(vm["type"].as<int>(), vm["xMin"].as<double>(), vm["xMax"].as<double>(), vm["intSize"].as<double>(),
         vm["error"].as<double>(), vm["preFirst"].as<double>(), vm["gMin"].as<double>(), vm["forceRMinusAOk"].as<int>(), vm["maxNrv"].as<int>(), vm["skipInterval"].as<int>());
     FILE* file = fopen(vm["file"].as<std::string>().c_str(), "r");
     if (file != NULL) {

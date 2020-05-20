@@ -1,5 +1,5 @@
 ###############################################################################
-# This file is part of ComNets LRE (Limited Reletive Error) Algorithm
+# This file is part of ComNets LRE (Limited Relative Error) Algorithm
 #
 # _____________________________________________________________________________
 #
@@ -43,10 +43,10 @@ for line in file:
     value = float(line)
     lre.put(value)
 
-lre.printResult()
+lre.printResult("lre_output_python.txt")
 
 
-# This example applies LRE to the test file input.txt with 40 minutes of Ping RTT measurements from Germany to New Zeeland. The CCDF is calculated (DLREG) and results larger
+# This example applies LRE to the test file input.txt with 40 minutes of Ping RTT measurements from Germany to New Zealand. The CCDF is calculated (DLREG) and results larger
 # 341 ms are considered not confident since the relative error (column 3) exceeds 5 %. Y-axis value is 9% at this point so it is far away from intended 1E-5 (99.999%) minimum value
 #
 # In this example the algorithm terminates when the whole file is processed (~20,000 samples). Alternatively the algorithm can continue until either enough samples to assess
